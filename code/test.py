@@ -1,4 +1,4 @@
-from word_counter_v2 import Tweet_count
+from tweet_count import Tweet_count
 from runJob import runJob
 
 
@@ -7,4 +7,4 @@ from runJob import runJob
 
 # Tweet_count(word_list)
 # runJob(InitProcessing, ['/temp/inputData.txt', '--output-dir=/temp/InitProcessingResults'], 'emr')
-runJob(Tweet_count, ['/DA_WU/myFinalProject/tweet_only.csv', '--output-dir=/DA_WU/myFinalProject/outputdir'])
+runJob(Tweet_count, ['/DA_WU/Trump_Tweets_Project/data/tweet_only.csv', '--output-dir=/DA_WU/Trump_Tweets_Project/outputdir'])
