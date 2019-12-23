@@ -11,7 +11,7 @@ class Bacon_count(MRJob):
         for word in line.split():
             
             if word.lower() in ("mar", "largo", "president"):
-                yield word, 1
+            yield word, 1
 
     def reducer(self, key, values):
         yield key, sum(values)
