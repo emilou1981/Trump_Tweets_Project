@@ -8,7 +8,7 @@ class Tweet_count(MRJob):
         #- Read in the words file and fill up
         # the array for the 'in' statement
         df = pd.read_csv('/DA_WU/Trump_Tweets_Project/data/words.csv')
-        word_list = df['words'].tolist()  
+        word_list = df['word'].tolist()  
         
         for word in line.split():
             if word.lower() in word_list:
