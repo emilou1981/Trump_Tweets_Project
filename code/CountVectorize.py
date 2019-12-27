@@ -3,16 +3,12 @@
 
 # vector and count the words in tweets.
 
-# In[1]:
-
 
 from sklearn.feature_extraction.text import CountVectorizer
 
 
-# In[2]:
-
-
 import pandas as pd
+from datetime import datetime
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -22,8 +18,8 @@ from sqlalchemy import func, inspect
 from sqlalchemy import Table, Column, Integer, String, Float, DateTime, MetaData
 
 
-# In[3]:
-
+start_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+print(f'Starting CountVectorizer at: {start_dt}')
 
 # Create an engine for the  database
 
@@ -56,20 +52,10 @@ no_retweets = Table(
 )
 
 
-# In[4]:
-
-
 #- select column 'text' from the tweets table - this has no retweets
 tweets_text_data = pd.read_sql('SELECT TEXT FROM TWEETS', conn)
 
-
-# In[5]:
-
-
 tweets = tweets_text_data.text
-
-
-# In[15]:
 
 
 # Instantiate Count Vectorizer
@@ -110,68 +96,21 @@ vectorizer.fit(vector_text)
 # print(new_vectorizer.fit_transform(new_text).toarray())
 
 
-# In[16]:
-
 
 words = vectorizer.vocabulary_
-
-
-# In[ ]:
-
-
-
-
-
-# In[17]:
-
-
 word_list = list(words.keys())
 
-
-# In[18]:
-
-
-word_list
-
-
-# In[19]:
-
-
 _word_ = {'word': word_list}
-
-
-# In[20]:
-
-
 word_df = pd.DataFrame(data=_word_)
 
-
-# In[21]:
-
-
-word_df.head()
-
-
-# In[22]:
-
+#word_df.head()
 
 word_df.to_csv('../data/words.csv', index=False)
 
-
-# In[23]:
-
-
+# Close the db connection
 conn.close()
 
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
+end_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+print(f'END OF CountVectorize at: {end_dt}')
+print('') # print empty line
 

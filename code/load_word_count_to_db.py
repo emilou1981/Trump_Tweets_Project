@@ -10,11 +10,10 @@
 # read all files to dataframe, process, load table word_counts with results.
 # 
 
-# In[12]:
-
 
 import pandas as pd
 import glob
+from datetime import datetime
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -24,7 +23,8 @@ from sqlalchemy import func, inspect
 from sqlalchemy import Table, Column, Integer, String, Float, DateTime, MetaData
 
 
-# In[13]:
+start_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+print(f'Starting load_word_count_to_db at: {start_dt}')
 
 
 colnames = ['word', 'cnt_word']
@@ -32,25 +32,16 @@ l = [pd.read_csv(filename, sep="\t", names=colnames, header=None) for filename i
 df = pd.concat(l, axis=0, sort=False)
 
 
-# In[14]:
-
-
-# Create an engine for the  FemaData.db database
+# Create an engine for the database
 
 engine = create_engine("sqlite:///../data/data.sqlite", echo=False)
 conn = engine.connect()
-
-
-# In[15]:
 
 
 # Reflect Database into ORM classes
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 meta = MetaData()
-
-
-# In[16]:
 
 
 word_counts = Table(
@@ -60,28 +51,18 @@ word_counts = Table(
 )
 
 
-# In[17]:
-
-
 # REPLACING, never updating if exists.
 df.to_sql('word_counts', conn, if_exists='replace', index=False)
-
-
-# In[18]:
 
 
 # Compact/compress db after working on it.
 engine.execute("VACUUM")
 
 
-# In[19]:
-
-
 conn.close()
 
 
-# In[ ]:
-
-
-
+end_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+print(f'END OF load_word_count_to_db at: {end_dt}')
+print('') # print empty line
 
