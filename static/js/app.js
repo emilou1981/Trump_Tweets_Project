@@ -12,7 +12,7 @@ console.log(data);
     //   cell.html(`<a href='http://${tableData.href}'>${tableData.job_title}</a>`)
     Object.entries(tableData).forEach(function ([key, value]) {
       console.log(key, value);
-      if (key!=="id_str:") {
+      if (key!=="id_str") {
         var cell = row.append("td");
         cell.text(value)
         
