@@ -13,8 +13,8 @@ console.log(data);
     Object.entries(tableData).forEach(function ([key, value]) {
       console.log(key, value);
     //   if (key !=="href" && key!=="job_title") {
-    //     var cell = row.append("td");
-    //     cell.text(value)
+        var cell = row.append("td");
+        cell.text(value)
         
     //   };
 
