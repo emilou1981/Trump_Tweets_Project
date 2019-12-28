@@ -12,13 +12,13 @@ console.log(data);
     //   cell.html(`<a href='http://${tableData.href}'>${tableData.job_title}</a>`)
     Object.entries(tableData).forEach(function ([key, value]) {
       console.log(key, value);
-    //   if (key !=="href" && key!=="job_title") {
+      if (key!=="id_str:") {
         var cell = row.append("td");
         cell.text(value)
         
-    //   };
+      };
 
-    // });
+    });
     
   });
   $('#tweet_table').DataTable();
