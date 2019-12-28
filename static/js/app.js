@@ -10,8 +10,8 @@ console.log(data);
     var row = tbody.append("tr");
     var cell=row.append("td")
     //   cell.html(`<a href='http://${tableData.href}'>${tableData.job_title}</a>`)
-    // Object.entries(tableData).forEach(function ([key, value]) {
-    //   console.log(key, value);
+    Object.entries(tableData).forEach(function ([key, value]) {
+      console.log(key, value);
     //   if (key !=="href" && key!=="job_title") {
     //     var cell = row.append("td");
     //     cell.text(value)
