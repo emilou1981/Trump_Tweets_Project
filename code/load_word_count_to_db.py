@@ -46,13 +46,26 @@ meta = MetaData()
 
 word_counts = Table(
    'word_counts', meta, 
+    Column('wc_pkey', Integer, primary_key=True),
     Column('word',String), 
     Column('cnt_word', Integer)
 )
 
+#- bind drop word_counts
+meta.bind = engine
+meta.drop_all()
 
-# REPLACING, never updating if exists.
-df.to_sql('word_counts', conn, if_exists='replace', index=False)
+#- recreate word_counts
+meta.create_all()
+
+# create pkey column values
+pk_nums = list(range(1,len(df) + 1))
+
+# append pkey values
+df.insert(0, "wc_pkey", pk_nums)
+
+# append, otherwise we loose pkey.
+df.to_sql('word_counts', conn, if_exists='append', index=False)
 
 
 # Compact/compress db after working on it.
