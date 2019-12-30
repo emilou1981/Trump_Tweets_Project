@@ -36,7 +36,7 @@ Base.prepare(db.engine, reflect=True)
 Tweets = Base.classes.tweets
 Retweets = Base.classes.retweets
 Phrases  = Base.classes.phrases
-Word_counts = Base.classes.word_counts
+Word_Counts = Base.classes.word_counts
 
 
 # print(Nmbr_Events)
@@ -48,38 +48,138 @@ def index():
     """Return the homepage."""
     return render_template("index.html")
 
-# @app.route("/api/disasters/", methods=['GET'])
-# def disasters():
-#     # x = Base.classes.nmbr_events
-#     luState = request.args.get('state')
+@app.route("/api/tweets/")
+def tweets():
+    # # x = Base.classes.nmbr_events
+    # luState = request.args.get('state')
 
-#     print(db.session.query(Nmbr_Events.STATE).all())
-#     sel = [Nmbr_Events.STATE, Nmbr_Events.NMBR_EVENTS]
-#     # session = Session(engine)
-#     if not luState: # - an empty param luState will evaluate to True
-#         results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
-#     else:
-#         # The must be a state to match on.
-#         results = db.session.query(*sel).filter(Nmbr_Events.STATE == luState).all()
+    # print(db.session.query(Word_Counts.STATE).all())
+    sel = [Retweets.source, Retweets.text, Retweets.created_at, Retweets.retweet_count, Retweets.favorite_count, Retweets.id_str]
+    # # session = Session(engine)
+    # if not luState: # - an empty param luState will evaluate to True
+    #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
+    # else:
+    #     # The must be a state to match on.
+    #     results = db.session.query(*sel).filter(Nmbr_Events.STATE == luState).all()
+    results = db.session.query(*sel).all()
 
 
-#     # session.close()
+    # session.close()
 
-#     print(results)
+    # print(results)
 
-#     all_results = []
-#     for s, e in results:
-#         results_dict = {}
-#         results_dict["state"] = s
-#         results_dict["number_events"] = e
-#         all_results.append(results_dict)
+    all_results = []
+    for source, text, created_at, retweet_count, favorite_count, id_str in results:
+        results_dict = {}
+        results_dict["source"] = source
+        results_dict["text"] = text
+        results_dict["created_at"] = created_at
+        results_dict["retweet_count"] = retweet_count
+        results_dict["favorite_count"] = favorite_count
+        results_dict["id_str"] = id_str
+        all_results.append(results_dict)
     
-#     return jsonify(all_results)
+    return jsonify(all_results)    
 
 
+@app.route("/api/retweets/")
+def retweets():
+    # # x = Base.classes.nmbr_events
+    # luState = request.args.get('state')
+
+    # print(db.session.query(Word_Counts.STATE).all())
+    sel = [Tweets.source, Tweets.text, Tweets.created_at, Tweets.retweet_count, Tweets.favorite_count, Tweets.id_str]
+    # # session = Session(engine)
+    # if not luState: # - an empty param luState will evaluate to True
+    #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
+    # else:
+    #     # The must be a state to match on.
+    #     results = db.session.query(*sel).filter(Nmbr_Events.STATE == luState).all()
+    results = db.session.query(*sel).all()
+
+
+    # session.close()
+
+    # print(results)
+
+    all_results = []
+    for source, text, created_at, retweet_count, favorite_count, id_str in results:
+        results_dict = {}
+        results_dict["source"] = source
+        results_dict["text"] = text
+        results_dict["created_at"] = created_at
+        results_dict["retweet_count"] = retweet_count
+        results_dict["favorite_count"] = favorite_count
+        results_dict["id_str"] = id_str
+        all_results.append(results_dict)
+    
+    return jsonify(all_results)    
+
+
+
+@app.route("/api/wordcnt/")
+def wordcnt():
+    # # x = Base.classes.nmbr_events
+    # luState = request.args.get('state')
+
+    # print(db.session.query(Word_Counts.STATE).all())
+    sel = [Word_Counts.wc_pkey, Word_Counts.word, Word_Counts.cnt_word]
+    # # session = Session(engine)
+    # if not luState: # - an empty param luState will evaluate to True
+    #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
+    # else:
+    #     # The must be a state to match on.
+    #     results = db.session.query(*sel).filter(Nmbr_Events.STATE == luState).all()
+    results = db.session.query(*sel).all()
+
+
+    # session.close()
+
+    # print(results)
+
+    all_results = []
+    for _pkey_, _word_, _cnt_word_ in results:
+        results_dict = {}
+        results_dict["wc_pkey"] = _pkey_
+        results_dict["word"] = _word_
+        results_dict["cnt_word"] = _cnt_word_
+        all_results.append(results_dict)
+    
+    return jsonify(all_results)
+
+@app.route("/api/phrasecnt/")
+def phrasecnt():
+    # # x = Base.classes.nmbr_events
+    # luState = request.args.get('state')
+
+    # print(db.session.query(Word_Counts.STATE).all())
+    sel = [Phrases.phrase_pkey, Phrases.phrase, Phrases.cnt_phrase]
+    # # session = Session(engine)
+    # if not luState: # - an empty param luState will evaluate to True
+    #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
+    # else:
+    #     # The must be a state to match on.
+    #     results = db.session.query(*sel).filter(Nmbr_Events.STATE == luState).all()
+    results = db.session.query(*sel).all()
+
+
+    # session.close()
+
+    # print(results)
+
+    all_results = []
+    for phrase_pkey, phrase, cnt_phrase in results:
+        results_dict = {}
+        results_dict["phrase_pkey"] = phrase_pkey
+        results_dict["phrase"] = phrase
+        results_dict["cnt_phrase"] = cnt_phrase
+        all_results.append(results_dict)
+    
+    return jsonify(all_results)
+ 
    
 
-# @app.route("/pieinfo" , methods=['GET'])
+# @app.route("/api/pieinfo" , methods=['GET'])
 # def pieinfo():
 #     #SELECT  EVENT_TYPE, count(EVENT_TYPE) as NBR_EVENT FROM all_events
 #     #GROUP BY EVENT_TYPE;
@@ -99,49 +199,7 @@ def index():
 #         ttleventcounts = db.session.query(*sel, func.count(All_Events.EVENT_TYPE)).filter(All_Events.STATE == luState).group_by(All_Events.EVENT_TYPE).all()
 
 
-
-#     print(ttleventcounts)
-#     pieinfo = []
-#     for e, c in ttleventcounts:
-#         pie_dict = {}
-#         pie_dict["EVENT_TYPE"] = e
-#         pie_dict["NBR_EVENT"] = c
-#         pieinfo.append(pie_dict)
-    
-#     return jsonify(pieinfo)
-
-# @app.route("/lineinfo", methods=['GET'])
-# def lineinfo():
-#     #SELECT YEAR, EVENT_TYPE, (SUM(DEATHS_DIRECT) + sum(DEATHS_INDIRECT)) as DEATHS  FROM all_events
-#     #GROUP BY  YEAR, EVENT_TYPE;
-
-    
-#     luState = request.args.get('state')
-
-
-#     sel = [
-#         All_Events.YEAR,
-#         All_Events.EVENT_TYPE
-#     ]
-
-#     if not luState: # - an empty param luState will evaluate to True
-#         deathinfo = db.session.query(*sel, (func.sum(All_Events.DEATHS_DIRECT) + func.sum(All_Events.DEATHS_INDIRECT)).label("DEATHS")).group_by(All_Events.YEAR, All_Events.EVENT_TYPE)
-#     else:
-#         deathinfo = db.session.query(*sel, (func.sum(All_Events.DEATHS_DIRECT) + func.sum(All_Events.DEATHS_INDIRECT)).label("DEATHS")).filter(All_Events.STATE == luState).group_by(All_Events.YEAR, All_Events.EVENT_TYPE)
-
-#     print(deathinfo)
-
-#     lineinfo = []
-#     for year, t, d in deathinfo:
-#         deaths_dict = {}
-#         deaths_dict["YEAR"] = year
-#         deaths_dict["EVENT_TYPE"] = t
-#         deaths_dict["DEATHS"] = d
-#         lineinfo.append(deaths_dict)
-
-#     # return jsonify(lineinfo)
-#     return jsonify(lineinfo)
-    
+  
 # @app.route("/jnb1")
 # def jnb1():
 #     print("This should return NOAA_Data.html")
