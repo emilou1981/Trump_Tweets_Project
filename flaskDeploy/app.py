@@ -48,13 +48,19 @@ def index():
     """Return the homepage."""
     return render_template("index.html")
 
+@app.route("/search_results")
+def search_results():
+    # print("This should print in the console")
+    # """Return the homepage."""
+    return render_template("search_results.html")    
+
 @app.route("/api/tweets/")
 def tweets():
     # # x = Base.classes.nmbr_events
     # luState = request.args.get('state')
 
     # print(db.session.query(Word_Counts.STATE).all())
-    sel = [Retweets.source, Retweets.text, Retweets.created_at, Retweets.retweet_count, Retweets.favorite_count, Retweets.id_str]
+    sel = [Tweets.source, Tweets.text, Tweets.created_at, Tweets.retweet_count, Tweets.favorite_count, Tweets.id_str]
     # # session = Session(engine)
     # if not luState: # - an empty param luState will evaluate to True
     #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
@@ -88,7 +94,7 @@ def retweets():
     # luState = request.args.get('state')
 
     # print(db.session.query(Word_Counts.STATE).all())
-    sel = [Tweets.source, Tweets.text, Tweets.created_at, Tweets.retweet_count, Tweets.favorite_count, Tweets.id_str]
+    sel = [Retweets.source, Retweets.text, Retweets.created_at, Retweets.retweet_count, Retweets.favorite_count, Retweets.id_str]
     # # session = Session(engine)
     # if not luState: # - an empty param luState will evaluate to True
     #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
@@ -176,8 +182,40 @@ def phrasecnt():
         all_results.append(results_dict)
     
     return jsonify(all_results)
- 
-   
+
+
+@app.route("/api/searchtweets/<searchpattern>")
+def searchtweets(searchpattern):
+    # print(f'Search Pattern: {searchpattern}')
+
+
+    sel = [Tweets.source, Tweets.text, Tweets.created_at, Tweets.retweet_count, Tweets.favorite_count, Tweets.id_str]
+    # # session = Session(engine)
+    # if not luState: # - an empty param luState will evaluate to True
+    #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
+    # else:
+    #     # The must be a state to match on.
+    s_str = f'%{searchpattern}%'
+    results = db.session.query(*sel).filter(Tweets.text.like(s_str)).all()
+    # results = db.session.query(*sel).all()
+
+
+    # session.close()
+
+    # print(results)
+
+    all_results = []
+    for source, text, created_at, retweet_count, favorite_count, id_str in results:
+        results_dict = {}
+        results_dict["source"] = source
+        results_dict["text"] = text
+        results_dict["created_at"] = created_at
+        results_dict["retweet_count"] = retweet_count
+        results_dict["favorite_count"] = favorite_count
+        results_dict["id_str"] = id_str
+        all_results.append(results_dict)
+    
+    return jsonify(all_results)    
 
 # @app.route("/api/pieinfo" , methods=['GET'])
 # def pieinfo():
