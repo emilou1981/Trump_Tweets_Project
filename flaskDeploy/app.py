@@ -52,7 +52,13 @@ def index():
 def search_results():
     # print("This should print in the console")
     # """Return the homepage."""
-    return render_template("search_results.html")    
+    return render_template("search_results.html")   
+
+@app.route("/bubble_chart")
+def bubble_chart():
+    # print("This should print in the console")
+    # """Return the homepage."""
+    return render_template("bubble_word.html")      
 
 @app.route("/api/tweets/")
 def tweets():
@@ -129,14 +135,14 @@ def wordcnt():
     # luState = request.args.get('state')
 
     # print(db.session.query(Word_Counts.STATE).all())
-    sel = [Word_Counts.wc_pkey, Word_Counts.word, Word_Counts.cnt_word]
+    sel = [Word_Counts.word, Word_Counts.cnt_word]
     # # session = Session(engine)
     # if not luState: # - an empty param luState will evaluate to True
     #     results = db.session.query(*sel).all()  #.order_by(Nmbr_Events.STATE.desc()).all()
     # else:
     #     # The must be a state to match on.
     #     results = db.session.query(*sel).filter(Nmbr_Events.STATE == luState).all()
-    results = db.session.query(*sel).all()
+    results = db.session.query(*sel).order_by(Word_Counts.cnt_word.desc()).limit(50)
 
 
     # session.close()
@@ -144,9 +150,10 @@ def wordcnt():
     # print(results)
 
     all_results = []
-    for _pkey_, _word_, _cnt_word_ in results:
+    # for _pkey_, _word_, _cnt_word_ in results:
+    for _word_, _cnt_word_ in results:
         results_dict = {}
-        results_dict["wc_pkey"] = _pkey_
+        # results_dict["wc_pkey"] = _pkey_
         results_dict["word"] = _word_
         results_dict["cnt_word"] = _cnt_word_
         all_results.append(results_dict)

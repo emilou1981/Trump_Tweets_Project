@@ -1,3 +1,17 @@
+#### @app.route("/")
+
+​	return render_template("index.html")
+
+
+
+#### @app.route("/bubble_chart")
+
+​	 return render_template("bubble_word.html")
+
+This is for todd's page of bubble chart with word/count.  Don't know if we'll use it.
+
+
+
 #### @app.route("/api/tweets/")
 
   [
@@ -26,10 +40,12 @@
 
 #### @app.route("/api/wordcnt/")
 
+ results = db.session.query(*sel).order_by(Word_Counts.cnt_word.desc()).limit(50)
+
 [
   {
   cnt_word: 62,
-  wc_pkey: 1,
+  //wc_pkey: 1,
   word: "10"
   }, ....
 
