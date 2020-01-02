@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Trump Tweet Affect</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script> 
+
+  <link href="../static/css/style.css" type="text/css" rel="stylesheet">
+  <script src="../static/js/w3.js" type="text/javascript"></script>
+
+
+  <!-- #tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: rgba(128, 128, 128, 0.4);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+  } -->
+
+</head>
+
+<!--Adding in nav header-->
+  
+
+  <div w3-include-html="./page_header.html"></div>
+ 
+
+  <div class="container_main">
+<!-- Start coding here -->
+ <body>  
+  <div id="tooltip" class="hidden">
+This is in the body
+
+<script type="text/javascript">
+  //       junkdataset = {
+  //           "children": [{"Name":"Olives","Count":4319},
+  //               {"Name":"Tea","Count":4159},
+  //               {"Name":"Mashed Potatoes","Count":2583},
+  //               {"Name":"Boiled Potatoes","Count":2074},
+  //               {"Name":"Milk","Count":1894},
+  //               {"Name":"Chicken Salad","Count":1809},
+  //               {"Name":"Vanilla Ice Cream","Count":1713},
+  //               {"Name":"Cocoa","Count":1636},
+  //               {"Name":"Lettuce Salad","Count":1566},
+  //               {"Name":"Lobster Salad","Count":1511},
+  //               {"Name":"Chocolate","Count":1489},
+  //               {"Name":"Apple Pie","Count":1487},
+  //               {"Name":"Orange Juice","Count":1423},
+  //               {"Name":"American Cheese","Count":1372},
+  //               {"Name":"Green Peas","Count":1341},
+  //               {"Name":"Assorted Cakes","Count":1331},
+  //               {"Name":"French Fried Potatoes","Count":1328},
+  //               {"Name":"Potato Salad","Count":1306},
+  //               {"Name":"Baked Potatoes","Count":1293},
+  //               {"Name":"Roquefort","Count":1273},
+  //               {"Name":"Stewed Prunes","Count":1268}]
+  //       };
+
+  // // console.log(junkdataset)
+  var diameter = 900;
+  var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+  var tooltip = d3.select("body")
+	.append("div")
+	.style("position", "absolute")
+	.style("z-index", "10")
+	.style("visibility", "hidden")
+
+
+  // Create array of objects of search results to be used by D3
+  var data = [];
+  d3.json("/api/phrasecnt/", function(result) {
+    result.forEach(function(i) { 
+      // console.log('foreach:' + i.word)   
+         data.push({
+          
+          // cnt_word: i.cnt_word
+          count: i.cnt_phrase,
+          keyword: i.phrase
+        });
+      });
+      // console.log(data);
+
+    //convert numerical values from strings to numbers
+    // data = data.map(function(d){ d.value = +d["count"]; return d; });
+      // console.log(data)
+    //bubbles needs very specific format, convert data to this.
+    //var nodes = bubble.nodes({children:data}).filter(function(d) { return !d.children; }); 
+    var dataset = {};  
+    dataset = {
+      "children": data
+      };
+    console.log(dataset)
+
+
+    var bubble = d3.pack(dataset)
+        .size([diameter, diameter])
+        .padding(1.5);
+
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", diameter)
+        .attr("height", diameter)
+        .attr("class", "bubble");
+
+    var nodes = d3.hierarchy(dataset)
+        
+        .sum(function(d) { 
+          console.log('d.count:' + d.count)
+          return d.count; });
+
+    var node = svg.selectAll(".node")
+        .data(bubble(nodes).descendants())
+        .enter()
+        .filter(function(d){
+            return  !d.children
+        })
+        .append("g")
+        .attr("class", "node")
+        .attr("transform", function(d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        });
+
+    node.append("title")
+        .text(function(d) {
+          strTitle = d.data.keyword + ' : ' + d.data.count          
+            return strTitle;
+        });
+
+    circles = node.append("circle")
+    // .on("mouseover", function(d){return tooltip.text(d.data.word).style("visibility", "visible");})
+        .attr("r", function(d) {
+            return d.r;
+        })
+        .style("fill", function(d,i) {
+            return color(i);
+        });
+    circles
+      .on('mouseover', function(d) {
+        coordinates = d3.mouse(this);
+
+        d3.select("#tooltip")
+          .style("left", coordinates[0] + 10 + "px")
+          .style("top", coordinates[1] + 10 + "px")
+          // .select("#info")
+          .text(d.word);
+
+        d3.select("#tooltip").classed("hidden", false);
+      })
+      .on("mouseout", function() {
+        d3.select("#tooltip").classed("hidden", true);
+      })
+
+    node.append("text")
+        .attr("dy", ".2em")
+        .style("text-anchor", "middle")
+        .text(function(d) {
+            return d.data.keyword;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", function(d){
+            return d.r/5;
+        })
+        .attr("fill", "white");
+
+    node.append("text")
+        .attr("dy", "1.3em")
+        .style("text-anchor", "middle")
+        .text(function(d) {
+            return d.data.count;
+        })
+        .attr("font-family",  "Gill Sans", "Gill Sans MT")
+        .attr("font-size", function(d){
+            return d.r/5;
+        })
+        .attr("fill", "white");
+
+    d3.select(self.frameElement)
+        .style("height", diameter + "px");
+
+  });
+
+</script>
+
+
+
+
+
+//   <!-- <script type="text/javascript"> 
+// var diameter = 900, //max size of the bubbles
+//     color  = d3.scale.category20(); //color category
+
+// var bubble = d3.layout.pack()
+//     .sort(null)
+//     .size([diameter, diameter])
+//     .padding(1.5);
+
+// var svg = d3.select("body")
+//     .append("svg")
+//     .attr("width", diameter)
+//     .attr("height", diameter)
+//     .attr("class", "bubble");
+
+// d3.json("/api/wordcnt/", function(d) {
+//     //   var counts = {};
+//     //   d.data.forEach(function(d) {
+//     //     // Retrieve the keywords from the JSON API response and count frequency of each one across all search results
+//     //     arr = d.attributes.keywords
+//     //     for(var i = 0; i<arr.length; i++) {
+//     //       var num = arr[i];
+//     //       counts[num] = counts[num] ? counts[num]+1 : 1;
+//     //     };
+//     //   });
+//     //   // console.log(counts)
+
+//       // Create array of objects of search results to be used by D3
+//       var data = [];
+       
+//       d.forEach(function(i) {    
+//          data.push({
+//           // word: i.word,
+//           // cnt_word: i.cnt_word
+//           count: i.cnt_word,
+//           keyword: i.word
+//         });
+//       });
+//       console.log(data);
+
+//     //convert numerical values from strings to numbers
+//     data = data.map(function(d){ d.value = +d["count"]; return d; });
+
+//     //bubbles needs very specific format, convert data to this.
+//     var nodes = bubble.nodes({children:data}).filter(function(d) { return !d.children; });
+
+//     //setup the chart
+//     var bubbles = svg.append("g")
+//         .attr("transform", "translate(0,0)")
+//         .selectAll(".bubble")
+//         .data(nodes)
+//         .enter();
+
+//     //create the bubbles
+//     bubbles.append("circle")
+//         .attr("r", function(d){ return d.r; })
+//         .attr("cx", function(d){ return d.x; })
+//         .attr("cy", function(d){ return d.y; })
+//         .transition()
+//             .ease("elastic")
+//             .duration(3000)
+//         .style("fill", function(d) { return color(d.value); });
+
+//     //format the text for each bubble
+//     bubbles.append("text")
+//         .attr("x", function(d){ return d.x; })
+//         .attr("y", function(d){ return d.y + 5; })
+//         .attr("text-anchor", "middle")
+//         .text(function(d){ return d["keyword"]; })
+//         .style({
+//             "fill":"white", 
+//             "font-family":"Helvetica Neue, Helvetica, Arial, san-serif",
+//             "font-size": "9px"
+//         });
+
+// }) -->
+
+// </script>
+  
+
+</div>
+<script type="text/javascript">
+  w3.includeHTML();
+  </script>
+</body>
+
+</html>

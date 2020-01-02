@@ -50,15 +50,15 @@ def index():
 
 @app.route("/search_results")
 def search_results():
-    # print("This should print in the console")
-    # """Return the homepage."""
     return render_template("search_results.html")   
 
-@app.route("/bubble_chart")
-def bubble_chart():
-    # print("This should print in the console")
-    # """Return the homepage."""
-    return render_template("bubble_word.html")      
+@app.route("/bubble_word")
+def bubble_word():
+    return render_template("bubble_word.html")
+
+@app.route("/bubble_phrase_cnt")
+def bubble_phrase_cnt():
+    return render_template("bubble_phrase_cnt.html")           
 
 @app.route("/api/tweets/")
 def tweets():
@@ -173,7 +173,7 @@ def phrasecnt():
     # else:
     #     # The must be a state to match on.
     #     results = db.session.query(*sel).filter(Nmbr_Events.STATE == luState).all()
-    results = db.session.query(*sel).all()
+    results = db.session.query(*sel).order_by(Phrases.cnt_phrase.desc()).limit(50)
 
 
     # session.close()

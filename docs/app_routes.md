@@ -4,11 +4,17 @@
 
 
 
-#### @app.route("/bubble_chart")
+#### @app.route("/bubble_word")
 
 ​	 return render_template("bubble_word.html")
 
-This is for todd's page of bubble chart with word/count.  Don't know if we'll use it.
+
+
+#### @app.route("/bubble_phrase_cnt")
+
+def bubble_phrase_cnt():
+
+  return render_template("bubble_phrase_cnt.html") 
 
 
 
