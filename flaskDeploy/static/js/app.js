@@ -3,24 +3,27 @@ var tbody = d3.select("#tweet_table").select("tbody");
 
 // from data.js
 var tableData = data;
-console.log(data);
+// console.log(data);
 
-  tableData.forEach(function (tableData) {
-    console.log(tableData);
-    var row = tbody.append("tr");
-    // var cell=row.append("td")
-    //   cell.html(`<a href='http://${tableData.href}'>${tableData.job_title}</a>`)
-    Object.entries(tableData).forEach(function ([key, value]) {
-      console.log(key, value);
-      if (key!=="id_str") {
-        var cell = row.append("td");
-        cell.text(value)
-        
-      };
+columns = ["source","text","created_at","retweet_count","favorite_count"]
 
-    });
-    
-  });
-  $('#tweet_table').DataTable();
+// create a row for each object in the data
+var rows = tbody.selectAll("tr")
+    .data(data)
+    .enter()
+    .append("tr");
+
+// create a cell in each row for each column
+var cells = rows.selectAll("td")
+    .data(function (row) {
+        return columns.map(function (column) {
+            return { column: column, value: row[column] };
+        });
+    })
+    .enter()
+    .append("td").text(function(d) {return d.value});
+
+$('#tweet_table').DataTable();
 $('.dataTables_length').addClass('bs-select');
+document.getElementById('tweet_table').style = 'display: block'
 
