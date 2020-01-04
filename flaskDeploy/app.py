@@ -48,6 +48,10 @@ def index():
     """Return the homepage."""
     return render_template("index.html")
 
+@app.route("/header")
+def header():
+    return render_template("page_header.html")
+
 @app.route("/search_results")
 def search_results():
     return render_template("search_results.html")   
