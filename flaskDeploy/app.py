@@ -62,7 +62,15 @@ def bubble_word():
 
 @app.route("/bubble_phrase_cnt")
 def bubble_phrase_cnt():
-    return render_template("bubble_phrase_cnt.html")           
+    return render_template("bubble_phrase_cnt.html")  
+
+@app.route("/market_impact")
+def market_impact():
+    return render_template("market_impact.html")   
+
+@app.route("/twitter_data")
+def twitter_data():
+    return render_template("data.html")      
 
 @app.route("/api/tweets/")
 def tweets():
