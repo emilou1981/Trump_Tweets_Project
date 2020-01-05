@@ -1,20 +1,46 @@
-#### @app.route("/")
+@app.route("/")
 
-​	return render_template("index.html")
+def index():
 
+  print("This should print in the console")
 
-
-#### @app.route("/bubble_word")
-
-​	 return render_template("bubble_word.html")
+   return render_template("index.html")
 
 
 
-#### @app.route("/bubble_phrase_cnt")
+@app.route("/header")
 
-def bubble_phrase_cnt():
+  return render_template("page_header.html")
+
+
+
+@app.route("/search_results")
+
+  return render_template("search_results.html")  
+
+
+
+@app.route("/bubble_word")
+
+  return render_template("bubble_word.html")
+
+
+
+@app.route("/bubble_phrase_cnt")
 
   return render_template("bubble_phrase_cnt.html") 
+
+
+
+@app.route("/market_impact")
+
+  return render_template("market_impact.html")  
+
+
+
+@app.route("/twitter_data")
+
+  return render_template("data.html")
 
 
 
@@ -77,3 +103,4 @@ def bubble_phrase_cnt():
   },
 
 This uses sql similar to 'select * from tweets where text LIKE %searchpattern%'
+
