@@ -2,117 +2,112 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Trump Tweet Affect</title>
+    <meta charset="UTF-8">
+    <title>Trump Tweet Affect</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="https://d3js.org/d3.v4.min.js"></script>  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 
-  <link href="../static/css/style.css" type="text/css" rel="stylesheet">
-  <script src="../static/js/w3.js" type="text/javascript"></script>
+    <link href="../static/css/style.css" type="text/css" rel="stylesheet">
+    <script src="../static/js/w3.js" type="text/javascript"></script>
 </head>
 
 <!--Adding in nav header-->
-  
 
-  <div w3-include-html="./page_header.html"></div>
- 
 
-  <div class="container_main">
-<!-- Start coding here -->
+<div w3-include-html="./page_header.html"></div>
 
- <script>
- d3.json("/api/searchtweets/000 russian").get( function (dataset) {
-  var diameter = 600;
-  var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-  var bubble = d3.pack(dataset)
-      .size([diameter, diameter])
-      .padding(1.5);
+<div class="container_main">
+    <!-- Start coding here -->
 
-  var svg = d3.select("body")
-      .append("svg")
-      .attr("width", diameter)
-      .attr("height", diameter)
-      .attr("class", "bubble");
+    <script>
+        d3.json("/api/searchtweets/000 russian").get(function(dataset) {
+            var diameter = 600;
+            var color = d3.scaleOrdinal(d3.schemeCategory20);
 
-  var nodes = d3.hierarchy(dataset)
-      .sum(function(d) { return d.Count; });
+            var bubble = d3.pack(dataset)
+                .size([diameter, diameter])
+                .padding(1.5);
 
-  var node = svg.selectAll(".node")
-      .data(bubble(nodes).descendants())
-      .enter()
-      .filter(function(d){
-          // return  !d.children
-          return !d
-      })
-      .append("g")
-      .attr("class", "node")
-      .attr("transform", function(d) {
-          return "translate(" + d.x + "," + d.y + ")";
-      });
+            var svg = d3.select("body")
+                .append("svg")
+                .attr("width", diameter)
+                .attr("height", diameter)
+                .attr("class", "bubble");
 
-  node.append("title")
-      .text(function(d) {
-          return d.word + ": " + d.cnt_word;
-      });
+            var nodes = d3.hierarchy(dataset)
+                .sum(function(d) {
+                    return d.Count;
+                });
 
-  node.append("circle")
-      .attr("r", function(d) {
-          return d.r;
-      })
-      .style("fill", function(d,i) {
-          return color(i);
-      });
+            var node = svg.selectAll(".node")
+                .data(bubble(nodes).descendants())
+                .enter()
+                .filter(function(d) {
+                    // return  !d.children
+                    return !d
+                })
+                .append("g")
+                .attr("class", "node")
+                .attr("transform", function(d) {
+                    return "translate(" + d.x + "," + d.y + ")";
+                });
 
-  node.append("text")
-      .attr("dy", ".2em")
-      .style("text-anchor", "middle")
-      .text(function(d) {
-          return d.data.word;
-      })
-      .attr("font-family", "sans-serif")
-      .attr("font-size", function(d){
-          return d.r/5;
-      })
-      .attr("fill", "white");
+            node.append("title")
+                .text(function(d) {
+                    return d.word + ": " + d.cnt_word;
+                });
 
-  node.append("text")
-      .attr("dy", "1.3em")
-      .style("text-anchor", "middle")
-      .text(function(d) {
-          return d.data.Count;
-      })
-      .attr("font-family",  "Gill Sans", "Gill Sans MT")
-      .attr("font-size", function(d){
-          return d.r/5;
-      })
-      .attr("fill", "white");
+            node.append("circle")
+                .attr("r", function(d) {
+                    return d.r;
+                })
+                .style("fill", function(d, i) {
+                    return color(i);
+                });
 
-  d3.select(self.frameElement)
-      .style("height", diameter + "px");
- });
- 
- </script>
- <body>  
+            node.append("text")
+                .attr("dy", ".2em")
+                .style("text-anchor", "middle")
+                .text(function(d) {
+                    return d.data.word;
+                })
+                .attr("font-family", "sans-serif")
+                .attr("font-size", function(d) {
+                    return d.r / 5;
+                })
+                .attr("fill", "white");
+
+            node.append("text")
+                .attr("dy", "1.3em")
+                .style("text-anchor", "middle")
+                .text(function(d) {
+                    return d.data.Count;
+                })
+                .attr("font-family", "Gill Sans", "Gill Sans MT")
+                .attr("font-size", function(d) {
+                    return d.r / 5;
+                })
+                .attr("fill", "white");
+
+            d3.select(self.frameElement)
+                .style("height", diameter + "px");
+        });
+    </script>
+
+
 
 
 
 </div>
 <script type="text/javascript">
-  w3.includeHTML();
-  </script>
+    w3.includeHTML();
+</script>
 </body>
 
 </html>
