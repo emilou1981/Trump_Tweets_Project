@@ -8,8 +8,46 @@ table.dataTable thead .sorting_desc:after,
 table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
-bottom: .5em;
+    bottom: .5em;
 }
 
+body {
+    background-color: lightgray;
+}
 
+.page_header {
+    background-color: whitesmoke;
+}
 
+.page_right {
+    float: right;
+    width: 98%;
+    margin: 10px 10px 10px 10px;
+    padding: 30px;
+}
+
+.page_left {
+    float: left;
+    width: 120%;
+    margin: 10px 10px 10px 10px;
+    /* padding: 30px; */
+}
+
+.column {
+    flex: 33.33%;
+    padding: 5px;
+}
+
+#table-area {
+    float: center;
+    width: 120%;
+    height: 100%;
+    /* margin: 1000px 50px 50px 50px; */
+    padding: 60px;
+}
+
+.table {
+    background-color: whitesmoke;
+    /* position: center; */
+    /* padding-left: 30px; */
+}

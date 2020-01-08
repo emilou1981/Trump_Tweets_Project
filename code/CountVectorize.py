@@ -7,6 +7,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 
 
+
 import pandas as pd
 from datetime import datetime
 
@@ -18,8 +19,9 @@ from sqlalchemy import func, inspect
 from sqlalchemy import Table, Column, Integer, String, Float, DateTime, MetaData
 
 
+
 start_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-print(f'Starting CountVectorizer at: {start_dt}')
+print(f'Starting CountVectorize at: {start_dt}')
 
 # Create an engine for the  database
 
@@ -52,21 +54,31 @@ no_retweets = Table(
 )
 
 
+
 #- select column 'text' from the tweets table - this has no retweets
 tweets_text_data = pd.read_sql('SELECT TEXT FROM TWEETS', conn)
+
+
 
 tweets = tweets_text_data.text
 
 
+
 # Instantiate Count Vectorizer
 #vectorizer = CountVectorizer( lowercase=True, token_pattern=r'\b[^\d\W]+\b', stop_words='english')
-vectorizer = CountVectorizer( lowercase=True, stop_words='english')
+from sklearn.feature_extraction import text 
+
+my_additional_stop_words = ['https','http', 'rt', '00', '000', '005', '00a', '00am',
+        '00ame', '00p', '00pm', 'amp', ]
+
+stop_words = text.ENGLISH_STOP_WORDS.union(my_additional_stop_words)
+vectorizer = CountVectorizer( lowercase=True, stop_words=stop_words)
 
 vector_text = tweets
 
 # To actually create the vectorizer, we simply need to call fit on the text
 # data that we wish to fix
-vectorizer.fit(vector_text)
+cv_fit = vectorizer.fit_transform(vector_text)
 
 # Now, we can inspect how our vectorizer vectorized the text
 # This will print out a list of words used, and their index in the vectors
@@ -98,19 +110,20 @@ vectorizer.fit(vector_text)
 
 
 words = vectorizer.vocabulary_
-word_list = list(words.keys())
 
-_word_ = {'word': word_list}
-word_df = pd.DataFrame(data=_word_)
 
-#word_df.head()
 
-word_df.to_csv('../data/words.csv', index=False)
+feature_names = vectorizer.get_feature_names()
+feature_counts = cv_fit.toarray().sum(axis=0)
 
-# Close the db connection
-conn.close()
+
+
+final_count_df = pd.DataFrame({"word": feature_names, "cnt_word": feature_counts})
+final_count_df.sort_values(by='cnt_word', ascending=False)
+
+
+final_count_df.to_csv('../data/final_word_count.csv', index=False)
 
 end_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 print(f'END OF CountVectorize at: {end_dt}')
 print('') # print empty line
-

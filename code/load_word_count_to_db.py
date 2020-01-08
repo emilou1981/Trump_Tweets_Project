@@ -12,7 +12,7 @@
 
 
 import pandas as pd
-import glob
+# import glob
 from datetime import datetime
 
 import sqlalchemy
@@ -27,9 +27,10 @@ start_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 print(f'Starting load_word_count_to_db at: {start_dt}')
 
 
-colnames = ['word', 'cnt_word']
-l = [pd.read_csv(filename, sep="\t", names=colnames, header=None) for filename in glob.glob("../outputdir/part-*")]
-df = pd.concat(l, axis=0, sort=False)
+# colnames = ['word', 'cnt_word']
+# l = [pd.read_csv(filename, sep="\t", names=colnames, header=None) for filename in glob.glob("../outputdir/part-*")]
+# df = pd.concat(l, axis=0, sort=False)
+df  = pd.read_csv('../data/final_word_count.csv')
 
 
 # Create an engine for the database
