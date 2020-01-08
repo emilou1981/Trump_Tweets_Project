@@ -70,6 +70,10 @@ def market_impact():
 def twitter_data():
     return render_template("data.html")      
 
+@app.route("/sentiment")
+def sentiment():
+    return render_template("sentiment.html")
+
 @app.route("/api/tweets/")
 def tweets():
     sel = [Tweets.source, Tweets.text, Tweets.created_at, Tweets.retweet_count, Tweets.favorite_count, Tweets.id_str]
