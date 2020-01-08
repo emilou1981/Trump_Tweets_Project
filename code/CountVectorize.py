@@ -59,19 +59,18 @@ no_retweets = Table(
 tweets_text_data = pd.read_sql('SELECT TEXT FROM TWEETS', conn)
 
 
-
 tweets = tweets_text_data.text
 
 
-
-# Instantiate Count Vectorizer
-#vectorizer = CountVectorizer( lowercase=True, token_pattern=r'\b[^\d\W]+\b', stop_words='english')
 from sklearn.feature_extraction import text 
 
+# define additonal stop words to add to english stop words.
 my_additional_stop_words = ['https','http', 'rt', '00', '000', '005', '00a', '00am',
-        '00ame', '00p', '00pm', 'amp', 'realdonaldtrump']
+        '00ame', '00p', '00pm', 'amp', 'realdonaldtrump', 'donald', 'trump', 'president']
 
 stop_words = text.ENGLISH_STOP_WORDS.union(my_additional_stop_words)
+
+# Instantiate Count Vectorizer
 vectorizer = CountVectorizer( lowercase=True, stop_words=stop_words)
 
 vector_text = tweets
@@ -80,42 +79,14 @@ vector_text = tweets
 # data that we wish to fix
 cv_fit = vectorizer.fit_transform(vector_text)
 
-# Now, we can inspect how our vectorizer vectorized the text
-# This will print out a list of words used, and their index in the vectors
-# print('Vocabulary: ')
-# print(vectorizer.vocabulary_)
-
-# # If we would like to actually create a vector, we can do so by passing the
-# # text into the vectorizer to get back counts
-# vector = vectorizer.transform(vector_text)
-
-# # Our final vector:
-# print('Full vector: ')
-# print(vector.toarray())
-
-# # Or if we wanted to get the vector for one word:
-# print('Hot vector: ')
-# print(vectorizer.transform(['hot']).toarray())
-
-# # Or if we wanted to get multiple vectors at once to build matrices
-# print('Hot and one: ')
-# print(vectorizer.transform(['hot', 'one']).toarray())
-
-# # We could also do the whole thing at once with the fit_transform method:
-# print('One swoop:')
-# new_text = ['Today is the day that I do the thing today, today']
-# new_vectorizer = CountVectorizer()
-# print(new_vectorizer.fit_transform(new_text).toarray())
-
-
 
 words = vectorizer.vocabulary_
 
-
-
+# get the feature names (words)
 feature_names = vectorizer.get_feature_names()
-feature_counts = cv_fit.toarray().sum(axis=0)
 
+# get the count for the words
+feature_counts = cv_fit.toarray().sum(axis=0)
 
 
 final_count_df = pd.DataFrame({"word": feature_names, "cnt_word": feature_counts})

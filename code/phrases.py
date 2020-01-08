@@ -26,17 +26,14 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 meta = MetaData()
 
-
 tweet_df = pd.read_csv('../data/tweet_only.csv')
 
-
 tweet_list = tweet_df.text.tolist()
-
 
 #- optional manual list of stop words.
 from sklearn.feature_extraction import text 
 my_additional_stop_words = ['https','http', 'rt', '00', '000', '005', '00a', '00am',
-        '00ame', '00p', '00pm', 'amp', 'realdonaldtrump', 'donald', 'trump']
+        '00ame', '00p', '00pm', 'amp', 'realdonaldtrump', 'donald', 'trump', 'president']
 
 stop_words = text.ENGLISH_STOP_WORDS.union(my_additional_stop_words)
 vectorizer = CountVectorizer(ngram_range=(2,4), stop_words=stop_words) #- use built in stop words
@@ -70,13 +67,11 @@ meta.drop_all()
 
 meta.create_all()
 
-
+# get pkey numbers and add to the dataframe
 pk_nums = list(range(1,len(df) + 1))
-
-
 df.insert(0, "phrase_pkey", pk_nums)
 
-
+#Insert to db
 df.to_sql('phrases',conn, if_exists='append', index=False)
 
 # compact the database
