@@ -27,8 +27,8 @@ Base = automap_base()
 # reflect the tables
 # Base.prepare(db.engine, reflect=True)
 Base.prepare(db.engine, reflect=True)
-print("Echo out keyes")
-print(Base.classes.keys())
+# print("Echo out keyes")
+# print(Base.classes.keys())
 # Save references to each table
 Tweets = Base.classes.tweets
 Retweets = Base.classes.retweets

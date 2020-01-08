@@ -69,7 +69,7 @@ tweets = tweets_text_data.text
 from sklearn.feature_extraction import text 
 
 my_additional_stop_words = ['https','http', 'rt', '00', '000', '005', '00a', '00am',
-        '00ame', '00p', '00pm', 'amp', ]
+        '00ame', '00p', '00pm', 'amp', 'realdonaldtrump']
 
 stop_words = text.ENGLISH_STOP_WORDS.union(my_additional_stop_words)
 vectorizer = CountVectorizer( lowercase=True, stop_words=stop_words)
