@@ -16,7 +16,7 @@ body {
 }
 
 .page_header {
-    background-color: whitesmoke;
+    background-color: green!important;
 }
 
 .page_right {
@@ -50,4 +50,18 @@ body {
     background-color: whitesmoke;
     /* position: center; */
     /* padding-left: 30px; */
+}
+.twitter-timeline {
+    margin-left:10px;
+    
+  
+}
+
+.gif {
+    margin-top: 30px;
+    margin-left: 18px;
+}
+
+.giphy2 {
+    margin-left: 3px;
 }
