@@ -12,7 +12,7 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 body {
-    background-color: lightgray;
+    background-color: rgb(180, 192, 201);
 }
 
 .page_header {
@@ -64,4 +64,17 @@ body {
 
 .giphy2 {
     margin-left: 3px;
+}
+
+.bubble {
+    margin-left:10px;
+    margin-top:10px;
+
+}
+.sent-table {
+    margin:8px;
+}
+
+.market-viz {
+    margin:8px;
 }
