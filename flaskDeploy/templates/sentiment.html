@@ -25,23 +25,27 @@
 <div class="container_main">
     <!-- Start coding here -->
 
-    <h3 class="sent-table">Sentiment Analysis</h3>
+    <!-- <h3 class="sent-table">Sentiment Analysis</h3> -->
     <div class="row">
         <div class="col-md-8 col-sm-8" class="sentiment">
             <!-- <h4>Sentiment of Daily Tweets</h4> -->
-            <div id="sent-1" style="width:1000px; height:700px;" class="sent-table"></div>
+            <div id="sent-1" style="width:800px; height:600px;" class="sent-table"></div>
             <!-- <h4>Sentiment vs Time of Day</h4> -->
-            <div id="sent-2" style="width:1000px; height:700px;" class="sent-table"></div>
+            <div id="sent-2" style="width:800px; height:600px;" class="sent-table"></div>
             <!-- <h4>Favorited and Retweeted vs Sentiment</h4> -->
-            <div id="sent-3" style="width:1000px; height:700px;" class="sent-table"></div>
+            <div id="sent-3" style="width:800px; height:600px;" class="sent-table"></div>
         </div>
         <div class="col-md-4 col-sm-4" class="sentiment">
+            <h5>Sentiment Analysis</h5>
+            <hr>
             <p>When looking at the tweets that Donald Trump had made, we decided to see if they were primarily positive or negative. In order to achieve this, we searched for a dataset that applied positives and negatives to tweets. We were able to find
                 a dataset (sentiment140) of 1.6 million tweets that had positive or negative sentiment attached to each one. With a dataset in place we were able to create our Bernoulli Naïve Bayes model which we then applied to our dataset of nearly
                 25,000 tweets.
                 <br /><br />The analysis of the tweets ultimately led to some surprises. One being that it classified 2/3 of the tweets as positive. Prior to the analysis, we would have thought that it would have been closer to a 50/50 split. There are
                 a handful of factors that could have altered the results. The biggest factor likely being that our model is not 100% accurate, thus causing some of the tweets to be mislabeled. On top of this the dataset we used may not have translated
                 well due to different diction than that of the tweets we analyzed.
+                <br /><br />
+                <br /><br /> Citation: Go, A., Bhayani, R. and Huang, L., 2009. Twitter sentiment classification using distant supervision. CS224N Project Report, Stanford, 1(2009), p.12.
             </p>
         </div>
     </div>
