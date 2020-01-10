@@ -19,7 +19,6 @@
 
 <!--Adding in nav header-->
 
-<!-- <body> -->
 
 <div w3-include-html="./header"></div>
 
@@ -28,7 +27,7 @@
 
 
     <div class="row">
-        <div class="col-md-5 col-sm-5">
+        <div class="col-md-5 col-sm-6">
             <div class="container">
 
                 <div class="page_left">
@@ -45,7 +44,7 @@
             </div>
         </div>
 
-        <div class="col-md-7 col-sm-7">
+        <div class="col-md-7 col-sm-5">
             <div class="page_right">
                 <h2>How Trump's Use of Twitter Affects the US Economy</h2>
 
@@ -63,7 +62,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-5">
                 <div class="container">
 
                     <a class="twitter-timeline" data-width="1200" data-height="600" data-dnt="true" data-theme="dark" href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">Tweets by realDonaldTrump</a>
@@ -72,7 +71,25 @@
                 </div>
             </div>
             <div class="col-md-6">
+                <h2>Our Approach</h2>
+                <hr>
+                <p>
+                    Machine learning was applied to analyze the tweets by using scikit-learn libraries to determine the positive or negative sentiment of each tweet (NLTK) and determine counts for the most tweeted words and phrases (Count Vectorizer). Outcomes from the machine
+                    learning are used to visualize in Tableau any potential economic impacts the tweets might have on the following economic indicators:
+                    <li>SPY Large Cap ETF tracks the S&P 500, which represents large cap stocks</li>
+                    <ul></ul>
+                    <li>MDY Mid Cap ETF represents mid cap stocks</li>
+                    <ul></ul>
+                    <li>IGR Small Cap ETF tracks the Russell 2000, which represents small cap stocks</li>
+                    <ul></ul>
+                    <li>Employment Situation monthly releases for non-farm jobs added each month</li>
+                    <ul></ul>
+                    <li>Real GDP Growth news releases which are represented by three estimates by quarter</li>
+                    <ul></ul>
 
+                    JavaScript D3.JS was used to create visualizations of the word and phrase counts and Material Design for Bootstrap was used to for search and sort functionality of the data table.
+
+                </p>
             </div>
         </div>
 
@@ -85,6 +102,6 @@
     w3.includeHTML();
 </script>
 
-<!-- </body> -->
+</body>
 
 </html>
