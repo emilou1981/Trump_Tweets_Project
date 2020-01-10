@@ -21,14 +21,14 @@ body {
 
 .page_right {
     float: right;
-    width: 98%;
+    width: 96%;
     margin: 10px 10px 10px 10px;
     padding: 30px;
 }
 
 .page_left {
     float: left;
-    width: 120%;
+    width: 110%;
     margin: 10px 10px 10px 10px;
     /* padding: 30px; */
 }
@@ -58,17 +58,18 @@ body {
 }
 
 .gif {
-    margin-top: 30px;
-    margin-left: 18px;
+    margin-top: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .giphy2 {
-    margin-left: 3px;
+    margin-left: 1%;
 }
 
 .bubble {
-    margin-left:10px;
-    margin-top:10px;
+    margin-left: 1%;
+    margin-top: 1%;
 
 }
 .sent-table {

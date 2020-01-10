@@ -5,7 +5,7 @@ var tbody = d3.select("#tweet_table").select("tbody");
 var tableData = data;
 // console.log(data);
 
-columns = ["source","text","created_at","retweet_count","favorite_count"]
+columns = ["source","text","created_at","retweet_count","favorite_count","sentiment"]
 
 // create a row for each object in the data
 var rows = tbody.selectAll("tr")
