@@ -79,3 +79,9 @@ body {
 .market-viz {
     margin:8px;
 }
+
+@media (max-width: 1500px) {
+    .market-viz {
+        width:60%; height:60% !important;
+    }
+}
