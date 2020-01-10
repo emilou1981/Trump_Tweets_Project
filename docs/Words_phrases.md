@@ -14,7 +14,9 @@ Although there are some interesting trends with the most commonly used words, th
 
 #### Phrases 
 
-A look at phrases shows variations of “make america great again” – “make america great” (496), “america great” (589) "make america" (551). "fake news" comes in at 619, "news media" at 200 and "fake news media"  188. "witch hunt" comes in at 329.  With phrases we also begin to see different references to people.  "crooked hillary" (349),  "hillary clinton" (329) and "crooked hillary clinton" (126) appear as does "president obama" (123). 
+A look at phrases shows variations of “make america great again”:
+
+“make america great” (496), “america great” (589) "make america" (551). "fake news" comes in at 619, "news media" at 200 and "fake news media"  188. "witch hunt" comes in at 329.  With phrases we also begin to see different references to people.  "crooked hillary" (349),  "hillary clinton" (329) and "crooked hillary clinton" (126) appear as does "president obama" (123). 
 
 "north korea" (183), "prime minister" (115) are references to foreign policy, with illegal immigration mentioned 115 times. 
 
