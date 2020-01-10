@@ -76,11 +76,11 @@ def sentiment():
 
 @app.route("/api/tweets/")
 def tweets():
-    sel = [Tweets.source, Tweets.text, Tweets.created_at, Tweets.retweet_count, Tweets.favorite_count, Tweets.id_str]
+    sel = [Tweets.source, Tweets.text, Tweets.created_at, Tweets.retweet_count, Tweets.favorite_count, Tweets.id_str, Tweets.sentiment]
     results = db.session.query(*sel).all()
-
+   
     all_results = []
-    for source, text, created_at, retweet_count, favorite_count, id_str in results:
+    for source, text, created_at, retweet_count, favorite_count, id_str, sentiment in results:
         results_dict = {}
         results_dict["source"] = source
         results_dict["text"] = text
@@ -88,6 +88,7 @@ def tweets():
         results_dict["retweet_count"] = retweet_count
         results_dict["favorite_count"] = favorite_count
         results_dict["id_str"] = id_str
+        results_dict["sentiment"] = sentiment
         all_results.append(results_dict)
     
     return jsonify(all_results)    
