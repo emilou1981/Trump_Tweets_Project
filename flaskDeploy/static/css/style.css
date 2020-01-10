@@ -75,14 +75,24 @@ body {
 }
 .sent-table {
     margin:8px;
+    /* width:70%; 
+    height:70%; */
 }
+/* .sentiment {
+    margin-left:8px;
+} */
 
 .market-viz {
     margin:8px;
+    /* width:95%; 
+    height:95%; */
 }
 
-@media (max-width: 1500px) {
-    .market-viz {
-        width:60%; height:60% !important;
-    }
+.text {
+    margin-top:10px;
+    margin-left: 5px;
+    margin-right: 20px;
+
+    
 }
+
