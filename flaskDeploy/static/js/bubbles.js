@@ -100,6 +100,7 @@ function wordcnt_create() {
     node.append("text")
       .attr("dy", ".2em")
       .style("text-anchor", "middle")
+      .style("stroke-width",0)
       .text(function (d) {
         return d.data.keyword;
       })
@@ -112,6 +113,7 @@ function wordcnt_create() {
     node.append("text")
       .attr("dy", "1.3em")
       .style("text-anchor", "middle")
+      .style("stroke-width",0)
       .text(function (d) {
         return d.data.count;
       })
@@ -229,6 +231,7 @@ function phrasecnt_create() {
     node.append("text")
       .attr("dy", ".2em")
       .style("text-anchor", "middle")
+      .style("stroke-width",0)
       .text(function (d) {
         return d.data.keyword;
       })
@@ -241,6 +244,7 @@ function phrasecnt_create() {
     node.append("text")
       .attr("dy", "1.3em")
       .style("text-anchor", "middle")
+      .style("stroke-width",0)
       .text(function (d) {
         return d.data.count;
       })
