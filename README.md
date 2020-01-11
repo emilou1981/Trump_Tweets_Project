@@ -18,7 +18,7 @@ Outcomes from the machine learning are used to visualize in Tableau any potentia
 
 ·     MDY Mid Cap ETF with represents mid cap stocks
 
-·     IGR Small Cap ETF which tracks the Russell 2000 which represents small cap stocks
+·     IJR Small Cap ETF which tracks the Russell 2000 which represents small cap stocks
 
 ·     Employment Situation monthly releases for non-farm jobs added each month
 
