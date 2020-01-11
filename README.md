@@ -4,7 +4,7 @@ We live in a world where people have the need to tell everyone what we are think
 
  This project is analyzing Donald Trump’s twitter feed from January 1, 2015 to December 18, 2019. This period of time was select to allow for a comparison of data that is outside of his presidential campaigning and time in office.  This tweets will be compared to various economic indicators to see if there is a correlation between them.
 
-
+The project website is https://p3-trump-tweets.herokuapp.com/
 
 **Our Approach**
 
