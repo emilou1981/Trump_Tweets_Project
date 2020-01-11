@@ -50,8 +50,6 @@ Graphically, observing the stock market categorized by sizes of market capitaliz
 
 ##### Does Trump Tweet in Respond to the Economic Indicators Instead?
 
-------
-
 ###### Trump's Tweet as Word Counts on GDP Components versus the Bureau of Economic Analysis (BEA) New Releases on RGDP growth
 
 Trump has tweeted more over times when the BEA new releases estimate increases in RGDP growth rates. His tweet counts have been flat when the estimates show slow or negative RGDP growth rates.
@@ -61,8 +59,6 @@ Trump has tweeted more over times when the BEA new releases estimate increases i
 In the same conclusions, Trump's tweet counts increase when the numbers of monthly job added are high and flat when they are low.
 
 ##### Do Economic Indicators Matter to the Market?
-
-------
 
 Slightly! The market may decline even when there are increases in RGDP growth or number of monthly job added. They move in the same directions likely when the changes in the economic indicators are either positive or negative for a few months or quarters in the roll. The market responses also seem brief. This may confirm that the stock market performance often based on earning estimates and/or word counts during conference calls on quarterly earnings. It will be an interesting project also to find the expected number of job added and expected growth rate that the market would react if the actual numbers of monthly job added or estimated growth rates go above or below.
 
